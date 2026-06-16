@@ -20,7 +20,7 @@ server.use(
 
 const PORT = process.env.PORT;
 
-server.use("/api/",shortUrlRouter)
+server.use("/api/", shortUrlRouter);
 
 const startServer = async () => {
   try {
