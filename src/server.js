@@ -1,11 +1,11 @@
+import dns from "node:dns/promises";
+dns.setServers(["8.8.8.8", "1.1.1.1"]);
 import dotenv from "dotenv";
 dotenv.config();
 import express from "express";
 import { mongoDB } from "./config/mongodb.js";
 import cors from "cors";
-
-import dns from "node:dns/promises";
-dns.setServers(["8.8.8.8", "1.1.1.1"]);
+import shortUrlRouter from "./routes/shortUrlRoutes.js";
 
 const server = express();
 
@@ -19,6 +19,8 @@ server.use(
 );
 
 const PORT = process.env.PORT;
+
+server.use("/api/",shortUrlRouter)
 
 const startServer = async () => {
   try {
