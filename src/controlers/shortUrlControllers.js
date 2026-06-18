@@ -5,8 +5,8 @@ export const createUrl = async (req, res) => {
   try {
     const { fullUrl } = req.body;
 
-    const urlFound = await ShortUrlModel.find({ fullUrl });
-    if (!urlFound) {
+    const urlFound = await ShortUrlModel.findOne({ fullUrl });
+    if (urlFound) {
       return res.status(409).json({
         success: false,
         message: "URL already exists!",
@@ -27,7 +27,7 @@ export const createUrl = async (req, res) => {
 
 export const getAllUrl = async (req, res) => {
   try {
-    const shortUrls = await ShortUrlModel.find();
+    const shortUrls = await ShortUrlModel.find().sort({ createdAt: -1 });
     if (!shortUrls) {
       return res.status(404).json({
         success: false,
